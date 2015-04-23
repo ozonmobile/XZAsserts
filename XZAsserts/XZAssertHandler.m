@@ -11,9 +11,9 @@
 #endif
 
 #ifdef NS_BLOCK_ASSERTIONS
-#define __FCYShouldAbort NO
+#define __XZShouldAbort NO
 #else
-#define __FCYShouldAbort YES
+#define __XZShouldAbort YES
 #endif
 
 NSString *const XZAssertErrorDomain = @"XZAssert";
@@ -39,7 +39,7 @@ NSString *const XZAssertExceptionName = @"XZAssertException";
 - (id)init {
     self = [super init];
     if (self) {
-        self.shouldRaiseWhenConditionFail = __FCYShouldAbort;
+        self.shouldRaiseWhenConditionFail = __XZShouldAbort;
     }
     return self;
 }
