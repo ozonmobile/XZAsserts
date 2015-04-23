@@ -56,7 +56,9 @@ PRAGMA_POP_DIAGNOSTIC
 
 #define XZAssertIsInMainThread XZAssert(([NSThread isMainThread]), @"This should be running on the main thread.")
 #define XZAssertIsNotInMainThread XZAssert((![NSThread isMainThread]), @"This should not be running on the main thread.")
-#define XZAssertMethodIsNotImplemented FCYAlwaysAssert( @"%@ method is not implemented in %@", NSStringFromSelector(_cmd), NSStringFromClass([self class]));
+#define XZAssertMethodIsNotImplemented XZAlwaysAssert( @"%@ method is not implemented in %@", NSStringFromSelector(_cmd), NSStringFromClass([self class]));
+
+#define XZAssertObjectRespondsToSelector(_object, _selector) XZAssert(([_object respondsToSelector:_selector]), @"Object %X %@ should respond to selector %@", _object, NSStringFromClass(_object), NSStringFromSelector(_selector));
 
 /// -----------------------
 /// @name XZAssertOrReturn
@@ -83,18 +85,18 @@ PRAGMA_PUSH_DIAGNOSTIC_AND_IGNORE_ALL_WARNINGS \
     } } while(0) \
 PRAGMA_POP_DIAGNOSTIC
 
-#define FCYAssertOrContinue(_condition, ...) \
+#define XZAssertOrContinue(_condition, ...) \
 PRAGMA_PUSH_DIAGNOSTIC_AND_IGNORE_ALL_WARNINGS \
     if (!(_condition)) { \
         if(sizeof(#__VA_ARGS__) == sizeof("")){ \
-            [[FCYAssertHandler handler] assertFailureOrReturnWithExpression:[NSString stringWithUTF8String:#_condition] \
+            [[XZAssertHandler handler] assertFailureOrReturnWithExpression:[NSString stringWithUTF8String:#_condition] \
                                                                 function:[NSString stringWithUTF8String:__PRETTY_FUNCTION__] \
                                                                 file:[NSString stringWithUTF8String:__FILE__] \
                                                                 line: __LINE__ \
                                                                 description:nil]; \
             } \
         else { \
-            [[FCYAssertHandler handler] assertFailureOrReturnWithExpression:[NSString stringWithUTF8String:#_condition] \
+            [[XZAssertHandler handler] assertFailureOrReturnWithExpression:[NSString stringWithUTF8String:#_condition] \
                                                                 function:[NSString stringWithUTF8String:__PRETTY_FUNCTION__] \
                                                                 file:[NSString stringWithUTF8String:__FILE__] \
                                                                 line: __LINE__ \
