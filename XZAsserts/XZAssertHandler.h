@@ -6,6 +6,13 @@
 
 #import <Foundation/Foundation.h>
 
+#define PRAGMA_PUSH_DIAGNOSTIC_AND_IGNORE_ALL_WARNINGS \
+_Pragma("clang diagnostic push"); \
+_Pragma("clang diagnostic ignored \"-Wall\"");
+
+#define PRAGMA_POP_DIAGNOSTIC \
+_Pragma("clang diagnostic pop")
+
 typedef void(^XZAssertReturnBlock)(NSError *);
 
 extern NSString *const XZAssertErrorDomain;
