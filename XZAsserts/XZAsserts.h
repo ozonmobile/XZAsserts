@@ -10,6 +10,7 @@
 /// ---------------
 
 #define XZAssert(_condition, ...) \
+PRAGMA_PUSH_DIAGNOSTIC_AND_IGNORE_ALL_WARNINGS \
     do { \
         if (!(_condition)) { \
 			if(sizeof(#__VA_ARGS__) == sizeof("")){ \
@@ -27,9 +28,11 @@
 															description:(@""), ##__VA_ARGS__]; \
 			} \
         } \
-    } while(0)
+    } while(0) \
+PRAGMA_POP_DIAGNOSTIC
 
 #define XZAlwaysAssert(...) \
+PRAGMA_PUSH_DIAGNOSTIC_AND_IGNORE_ALL_WARNINGS \
 	do { \
 		if(sizeof(#__VA_ARGS__) == sizeof("")){ \
 			[[XZAssertHandler handler] assertFailureWithExpression:@"" \
@@ -45,7 +48,8 @@
 															   line: __LINE__ \
 														description:(@""), ##__VA_ARGS__]; \
 		} \
-	} while(0)
+	} while(0) \
+PRAGMA_POP_DIAGNOSTIC
 
 #define XZAssertParameterNotNil(_paramName) XZAssert((_paramName), @"Invalid parameter '%s'. Must not be nil.", #_paramName)
 #define XZAssertNotNil(_varName) XZAssert((_varName), @"Variable '%s' must not be nil.", #_varName)
@@ -59,6 +63,7 @@
 /// -----------------------
 
 #define XZAssertOrReturn(_condition, ...) \
+PRAGMA_PUSH_DIAGNOSTIC_AND_IGNORE_ALL_WARNINGS \
 	do { if (!(_condition)) { \
 			if(sizeof(#__VA_ARGS__) == sizeof("")){ \
 				[[XZAssertHandler handler] assertFailureOrReturnWithExpression:[NSString stringWithUTF8String:#_condition] \
@@ -75,9 +80,11 @@
 																	description:(@""), ##__VA_ARGS__]; \
 			} \
         return; \
-    } } while(0)
+    } } while(0) \
+PRAGMA_POP_DIAGNOSTIC
 
 #define FCYAssertOrContinue(_condition, ...) \
+PRAGMA_PUSH_DIAGNOSTIC_AND_IGNORE_ALL_WARNINGS \
     if (!(_condition)) { \
         if(sizeof(#__VA_ARGS__) == sizeof("")){ \
             [[FCYAssertHandler handler] assertFailureOrReturnWithExpression:[NSString stringWithUTF8String:#_condition] \
@@ -93,10 +100,12 @@
                                                                 line: __LINE__ \
                                                                 description:(@""), ##__VA_ARGS__]; \
         }; \
-    continue; \
-} \
+    	continue; \
+	} \
+PRAGMA_POP_DIAGNOSTIC
 
 #define XZAssertOrReturnNil(_condition, ...) \
+PRAGMA_PUSH_DIAGNOSTIC_AND_IGNORE_ALL_WARNINGS \
     do { if (!(_condition)) { \
 			if(sizeof(#__VA_ARGS__) == sizeof("")){ \
 				[[XZAssertHandler handler] assertFailureOrReturnWithExpression:[NSString stringWithUTF8String:#_condition] \
@@ -113,9 +122,11 @@
 																	description:(@""), ##__VA_ARGS__]; \
 			} \
         return nil; \
-    } } while(0)
+    } } while(0) \
+PRAGMA_POP_DIAGNOSTIC
 
 #define XZAssertOrReturnZero(_condition, ...) \
+PRAGMA_PUSH_DIAGNOSTIC_AND_IGNORE_ALL_WARNINGS \
 	do { if (!(_condition)) { \
 		if(sizeof(#__VA_ARGS__) == sizeof("")){ \
 			[[XZAssertHandler handler] assertFailureOrReturnWithExpression:[NSString stringWithUTF8String:#_condition] \
@@ -132,9 +143,11 @@
 																description:(@""), ##__VA_ARGS__]; \
 		} \
 		return 0; \
-	} } while(0)
+	} } while(0) \
+PRAGMA_POP_DIAGNOSTIC
 
 #define XZAssertOrReturnBlock(_condition, _desc, _block) \
+PRAGMA_PUSH_DIAGNOSTIC_AND_IGNORE_ALL_WARNINGS \
     do { if (!(_condition)) { \
         [[XZAssertHandler handler] assertFailureOrReturnBlock:(_block) \
                 withExpression:[NSString stringWithUTF8String:#_condition] \
@@ -143,9 +156,11 @@
                           line:__LINE__ \
                    description:(_desc)]; \
         return; \
-    } } while(0)
+    } } while(0) \
+PRAGMA_POP_DIAGNOSTIC
 
 #define XZAssertOrReturnNilBlock(_condition, _desc, _block) \
+PRAGMA_PUSH_DIAGNOSTIC_AND_IGNORE_ALL_WARNINGS \
     do { if (!(_condition)) { \
         [[XZAssertHandler handler] assertFailureOrReturnBlock:(_block) \
                 withExpression:[NSString stringWithUTF8String:#_condition] \
@@ -154,9 +169,11 @@
                           line:__LINE__ \
                    description:(_desc)]; \
         return nil; \
-    } } while(0)
+    } } while(0) \
+PRAGMA_POP_DIAGNOSTIC
 
 #define XZAssertOrReturnZeroBlock(_condition, _desc, _block) \
+PRAGMA_PUSH_DIAGNOSTIC_AND_IGNORE_ALL_WARNINGS \
 	do { if (!(_condition)) { \
 			[[XZAssertHandler handler] assertFailureOrReturnBlock:(_block) \
 													withExpression:[NSString stringWithUTF8String:#_condition] \
@@ -165,4 +182,5 @@
 															  line:__LINE__ \
 													   description:(_desc)]; \
 		return 0; \
-	} } while(0)
+	} } while(0) \
+PRAGMA_POP_DIAGNOSTIC
