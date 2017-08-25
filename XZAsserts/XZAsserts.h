@@ -148,6 +148,27 @@ PRAGMA_PUSH_DIAGNOSTIC_AND_IGNORE_ALL_WARNINGS \
 	} } while(0) \
 PRAGMA_POP_DIAGNOSTIC
 
+#define XZAssertOrReturnZero(_condition, ...) \
+PRAGMA_PUSH_DIAGNOSTIC_AND_IGNORE_ALL_WARNINGS \
+    do { if (!(_condition)) { \
+        if(sizeof(#__VA_ARGS__) == sizeof("")){ \
+            [[XZAssertHandler handler] assertFailureOrReturnWithExpression:[NSString stringWithUTF8String:#_condition] \
+                                                                    function:[NSString stringWithUTF8String:__PRETTY_FUNCTION__] \
+                                                                        file:[NSString stringWithUTF8String:__FILE__] \
+                                                                        line: __LINE__ \
+                                                                description:nil]; \
+        } \
+        else { \
+            [[XZAssertHandler handler] assertFailureOrReturnWithExpression:[NSString stringWithUTF8String:#_condition] \
+                                                                    function:[NSString stringWithUTF8String:__PRETTY_FUNCTION__] \
+                                                                        file:[NSString stringWithUTF8String:__FILE__] \
+                                                                        line: __LINE__ \
+                                                                description:(@""), ##__VA_ARGS__]; \
+        } \
+        return NO; \
+    } } while(0) \
+PRAGMA_POP_DIAGNOSTIC
+
 #define XZAssertOrReturnBlock(_condition, _desc, _block) \
 PRAGMA_PUSH_DIAGNOSTIC_AND_IGNORE_ALL_WARNINGS \
     do { if (!(_condition)) { \
@@ -185,4 +206,17 @@ PRAGMA_PUSH_DIAGNOSTIC_AND_IGNORE_ALL_WARNINGS \
 													   description:(_desc)]; \
 		return 0; \
 	} } while(0) \
+PRAGMA_POP_DIAGNOSTIC
+
+#define XZAssertOrReturnZeroBlock(_condition, _desc, _block) \
+PRAGMA_PUSH_DIAGNOSTIC_AND_IGNORE_ALL_WARNINGS \
+    do { if (!(_condition)) { \
+            [[XZAssertHandler handler] assertFailureOrReturnBlock:(_block) \
+                                                    withExpression:[NSString stringWithUTF8String:#_condition] \
+                                                          function:[NSString stringWithUTF8String:__PRETTY_FUNCTION__] \
+                                                              file:[NSString stringWithUTF8String:__FILE__] \
+                                                              line:__LINE__ \
+                                                       description:(_desc)]; \
+        return NO; \
+    } } while(0) \
 PRAGMA_POP_DIAGNOSTIC
