@@ -148,7 +148,7 @@ PRAGMA_PUSH_DIAGNOSTIC_AND_IGNORE_ALL_WARNINGS \
 	} } while(0) \
 PRAGMA_POP_DIAGNOSTIC
 
-#define XZAssertOrReturnZero(_condition, ...) \
+#define XZAssertOrReturnFalse(_condition, ...) \
 PRAGMA_PUSH_DIAGNOSTIC_AND_IGNORE_ALL_WARNINGS \
     do { if (!(_condition)) { \
         if(sizeof(#__VA_ARGS__) == sizeof("")){ \
@@ -208,7 +208,7 @@ PRAGMA_PUSH_DIAGNOSTIC_AND_IGNORE_ALL_WARNINGS \
 	} } while(0) \
 PRAGMA_POP_DIAGNOSTIC
 
-#define XZAssertOrReturnZeroBlock(_condition, _desc, _block) \
+#define XZAssertOrReturnFalseBlock(_condition, _desc, _block) \
 PRAGMA_PUSH_DIAGNOSTIC_AND_IGNORE_ALL_WARNINGS \
     do { if (!(_condition)) { \
             [[XZAssertHandler handler] assertFailureOrReturnBlock:(_block) \
